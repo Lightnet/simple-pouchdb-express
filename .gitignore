@@ -1,0 +1,7 @@
+node_modules/
+mydb/
+pouch__all_dbs__/
+_users/
+log.txt
+_replicator/
+config.json

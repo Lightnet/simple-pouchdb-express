@@ -1,0 +1,87 @@
+<html>
+	<head>
+		<script src="/pouchdb.min.js"></script>
+		<script src="/pouchdb.authentication.min.js"></script>
+		
+		<!--
+		<script src="//cdn.jsdelivr.net/pouchdb/6.0.7/pouchdb.min.js"></script>
+		-->
+		<script>
+			//https://www.sitepoint.com/getting-started-with-pouchdb/
+			/*
+			var databaseurl = "";
+			var config = {};
+			//config = {ajax:{withCredentials:false}};
+			config = {
+				//skipSetup: true,
+				ajax: {
+					cache: false,
+					timeout: 10000,
+					headers: {
+						'X-Some-Special-Header': 'mydb'
+					}
+				},
+				auth: {
+					username: 'admin',
+					password: 'admind'
+				}
+			}
+			
+			databaseurl = 'http://127.0.0.1:8080/mydb';
+			var db = new PouchDB(databaseurl, config);
+			db.info().then(function (info) {
+				console.log(info);
+			});
+			*/
+			
+			var user = {
+			  name: 'admin',
+			  password: 'admin'
+			};
+
+			var pouchOpts = {
+			  skipSetup: true
+			};
+
+			var ajaxOpts = {
+			  ajax: {
+				headers: {
+				  Authorization: 'Basic ' + window.btoa(user.name + ':' + user.password)
+				}
+			  }
+			};
+
+			var db = new PouchDB('http://127.0.0.1:8080/mydb', pouchOpts);
+
+			db.signup('guest', 'guest', function (err, response) {
+			  if (err) {
+				if (err.name === 'conflict') {
+				  // "guest" already exists, choose another username
+				  console.log('already exists');
+				} else if (err.name === 'forbidden') {
+				  // invalid username
+				  console.log('invalid username');
+				} else {
+				  // HTTP error, cosmic rays, etc.
+				  console.log('error');
+				}
+			  }
+			});
+			
+			/*
+			db.login(user.name, user.password, ajaxOpts).then(function() {
+			  return db.allDocs();
+			}).then(function(docs) {
+			  console.log(docs);
+			}).catch(function(error) {
+			  console.error(error);
+			});
+			*/
+			
+			//console.log('database');
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
