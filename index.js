@@ -18,7 +18,6 @@ app.get('/pouchdb.authentication.min.js', function(req, res){
 	res.send(authpouchdbfile);
 	//works
 	//res.sendFile('/node_modules/pouchdb-authentication/dist/pouchdb.authentication.min.js' , { root : __dirname});
-	
 });
 
 //load file
